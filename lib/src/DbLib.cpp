@@ -9,6 +9,12 @@ Module:
 --*/
 
 #include "DbLib.h"
+#include <vector>
+#include <algorithm>
+
+// Maximum number of connections in the pool
+static const size_t MAX_POOL_SIZE = 10;
+static std::vector<DbConnection*> gConnectionPool;
 
 // DbConnection implementation
 DbConnection::DbConnection() : mConnected(false)
@@ -47,10 +53,21 @@ DbConnection * DbConnectionManager::GetConnection()
     if(!mInitialized)
         return nullptr;
     
-    return new DbConnection();
+    // Implement basic connection pooling with a maximum limit
+    if(gConnectionPool.size() >= MAX_POOL_SIZE)
+        return nullptr;  // Pool exhausted
+    
+    DbConnection * conn = new DbConnection();
+    gConnectionPool.push_back(conn);
+    return conn;
 }
 
 void DbConnectionManager::ReleaseConnection(DbConnection * connection)
 {
+    // Remove from pool
+    auto it = std::find(gConnectionPool.begin(), gConnectionPool.end(), connection);
+    if(it != gConnectionPool.end())
+        gConnectionPool.erase(it);
+    
     delete connection;
 }

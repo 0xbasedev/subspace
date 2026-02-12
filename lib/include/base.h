@@ -33,13 +33,8 @@ typedef uint16_t uint16;
 typedef uint32_t uint32;
 typedef uint64_t uint64;
 
-#if defined(PLATFORM_WIN32)
-    typedef int32 nativeint;
-    typedef const char * const_cstring;
-#else
-    typedef int nativeint;
-    typedef const char * const_cstring;
-#endif
+typedef int nativeint;
+typedef const char * const_cstring;
 
 // Helper macro for main function
 #define main$ main

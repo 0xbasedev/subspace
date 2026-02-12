@@ -50,6 +50,14 @@ void Thread::Start()
 {
     if(!mRunning)
     {
+        // Join any existing thread before starting a new one
+        if(mHandle)
+        {
+            static_cast<std::thread*>(mHandle)->join();
+            delete static_cast<std::thread*>(mHandle);
+            mHandle = nullptr;
+        }
+        
         mRunning = true;
         mHandle = new std::thread([this]() { this->Run(); });
     }

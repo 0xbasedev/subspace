@@ -11,6 +11,7 @@ config.log
 # Application binaries
 */bin/*
 !*/bin/.gitkeep
+examples/simple_server
 
 # Libraries
 lib/*.a
