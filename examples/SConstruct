@@ -1,0 +1,20 @@
+#!/usr/bin/env python
+"""
+Build script for examples
+"""
+
+import os
+from glob import glob
+
+# Import environment from root
+with open('../environment.py') as f:
+    exec(f.read())
+
+# Update paths for examples
+env.Append(CPPPATH=['../lib/include'])
+env.Append(LIBPATH=['../lib'])
+
+# Build simple_server example
+env.Program('simple_server',
+    source = ['simple_server.cpp'],
+    LIBS = ['netlib', 'timelib', 'loglib'])

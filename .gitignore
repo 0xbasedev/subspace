@@ -1,0 +1,28 @@
+# Build artifacts
+*.o
+*.a
+*.so
+*.exe
+*.dll
+.sconsign.dblite
+.sconf_temp/
+config.log
+
+# Application binaries
+*/bin/*
+!*/bin/.gitkeep
+examples/simple_server
+
+# Libraries
+lib/*.a
+lib/src/*.o
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
